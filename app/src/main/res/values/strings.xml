@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TestDigitalNomads</string>
+
+    <!--Common-->
+    <string name="internet_disconnected">Интернет отключен</string>
+    <string name="gps_disconnected">GPS отключен</string>
+    <string name="internet_timeout">Время ожидания истекло.\nПопрбуйте подключиться позже. </string>
+    <string name="internet_something_went_wrong">Что-то пошло не так...\nПопрбуйте подключиться позже.</string>
+    <string name="progress_screen_hint">Пожалуйста, подождите...</string>
+
 </resources>
