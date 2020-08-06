@@ -5,7 +5,6 @@ import com.evgeny.testdigitalnomads.util.BASE_URL
 import com.evgeny.testdigitalnomads.repository.network.MainApi
 import com.evgeny.testdigitalnomads.repository.network.MainApiClient
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.readystatesoftware.chuck.ChuckInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -25,7 +24,7 @@ val NetworkModule = module {
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             })
-            .addInterceptor(ChuckInterceptor(App.appCtx))
+//            .addInterceptor(ChuckInterceptor(App.appCtx))
             .build()
     }
 
