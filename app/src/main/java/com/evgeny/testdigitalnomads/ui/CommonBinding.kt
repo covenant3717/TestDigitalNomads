@@ -8,6 +8,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import coil.transform.RoundedCornersTransformation
 import com.evgeny.testdigitalnomads.R
 import com.evgeny.testdigitalnomads.util.invisible
 import com.evgeny.testdigitalnomads.util.visible
@@ -38,27 +39,20 @@ fun bindViewVisibility(view: View, status: LiveData<Boolean>) {
     }
 }
 
-@BindingAdapter("imageLink")
-fun bindImageLink(view: ImageView, imageLink: ObservableField<String>) {
-    view.load(imageLink.get()) {
-        crossfade(true)
-        error(R.drawable.cmn_placeholder_circle)
-    }
-}
-
-@BindingAdapter("imageFile")
-fun bindImageFile(view: ImageView, imgFile: ObservableField<File?>) {
-    view.load(imgFile.get()) {
-        crossfade(true)
-        error(R.drawable.cmn_placeholder_circle)
-    }
-}
-
 @BindingAdapter("setAdapterRV")
-fun bindAdapterRV(rv: RecyclerView, adapter: RecyclerView.Adapter<*>) {
+fun setAdapterRV(rv: RecyclerView, adapter: RecyclerView.Adapter<*>) {
     rv.adapter = adapter
 }
 
 
 // CURRENT PROJECT =================================================================================
 
+@BindingAdapter("setNewsImage")
+fun setNewsImage(view: ImageView, imageUrl: String) {
+    view.load(imageUrl) {
+        crossfade(500)
+//        placeholder(R.drawable.cmn_placeholder)
+        error(R.drawable.cmn_placeholder)
+        transformations(RoundedCornersTransformation(26f))
+    }
+}

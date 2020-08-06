@@ -17,16 +17,19 @@ class NewsActivity : BaseActivity() {
         binding.apply {
             lifecycleOwner = this@NewsActivity
             ui = newsVM
+            newsAdapter = newsVM.newsAdapter
+        }
 
-            initStartActivity(newsVM) {
-                when (it) {
+        initStartActivity(newsVM) {
+            when (it) {
 //                    TAG_ACTIVITY_NEWS -> {
 //                    launchActivity<BidsActivity>()
 //                        finish()
 //                    }
-                }
             }
         }
+
     }
+
 
 }

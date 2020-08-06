@@ -8,6 +8,10 @@
         <variable
             name="ui"
             type="com.evgeny.testdigitalnomads.mvvm.view.NewsView" />
+
+        <variable
+            name="newsAdapter"
+            type="com.evgeny.testdigitalnomads.ui.adapter.RVNewsAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,6 +56,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
+            app:setAdapterRV="@{newsAdapter}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
             app:layout_constraintVertical_bias="1.0"
