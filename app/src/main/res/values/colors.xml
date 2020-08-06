@@ -10,6 +10,9 @@
     <!--NewsActivity-->
     <color name="news_title">@color/colorPrimary</color>
     <color name="news_date">#80325181</color>
+    <color name="item_news_date">@color/colorAccent</color>
+    <color name="item_news_title">@color/colorPrimary</color>
+    <color name="item_news_desc">#99325181</color>
 
 
 

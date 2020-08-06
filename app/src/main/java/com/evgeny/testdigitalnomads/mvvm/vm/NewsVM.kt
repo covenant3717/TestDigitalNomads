@@ -14,12 +14,12 @@ class NewsVM : BaseVM(), NewsView {
     override val date: ObservableField<String> = ObservableField("")
 
     init {
-        setMainDate()
+        setDate()
     }
 
     //==============================================================================================
 
-    private fun setMainDate() = launchOnViewModelScope {
+    private fun setDate() = launchOnViewModelScope {
         val currentDate = getCurrentDate(DATE_PATTERN_NEWS_MAIN_DATE)
         date.set(currentDate)
     }
