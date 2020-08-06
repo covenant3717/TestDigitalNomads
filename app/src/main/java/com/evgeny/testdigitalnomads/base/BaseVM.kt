@@ -38,6 +38,6 @@ abstract class BaseVM() : ViewModel(), BaseView, KoinComponent {
         toast.postValue(null)
         progress.postValue(null)
         startActivity.postValue(null)
-
     }
+
 }

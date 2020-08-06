@@ -28,12 +28,13 @@ open class BaseApiClient {
     }
 
     private fun <T> checkResponse(response: BaseResponse<T>): Resource<T> {
-        val responseOk = response.result.response ?: false
-        return if (responseOk) {
-            Resource.Success(response.result.result)
+        val responseOk = response.status
+        return if (responseOk == "ok") {
+            if (response.articles != null) Resource.Success(response.articles)
+            else Resource.Error("Данные отсутсвуют")
         } else {
-            val errCode = response.result.error_code
-            val errMsg = response.result.error_msg
+            val errCode = response.errCode
+            val errMsg = response.errMessage
             Resource.Error(errMsg)
         }
     }
@@ -41,26 +42,17 @@ open class BaseApiClient {
     private fun checkException(e: Throwable): Resource.Error {
         return when (e) {
             is HttpException -> {
-                mlg(
-                    "HttpException: ${e.message()}",
-                    CALL_TAG
-                )
+                mlg("HttpException: ${e.message()}", CALL_TAG)
                 Resource.Error("${e.code()} ${e.message()}")
             }
 
             is SocketTimeoutException -> {
-                mlg(
-                    "SocketTimeoutException: ${e.message}",
-                    CALL_TAG
-                )
+                mlg("SocketTimeoutException: ${e.message}", CALL_TAG)
                 Resource.Error(getStringRes(R.string.internet_timeout))
             }
 
             else -> {
-                mlg(
-                    "Throwable: ${e.message}",
-                    CALL_TAG
-                )
+                mlg("Throwable: ${e.message}", CALL_TAG)
                 Resource.Error(getStringRes(R.string.internet_something_went_wrong))
             }
         }

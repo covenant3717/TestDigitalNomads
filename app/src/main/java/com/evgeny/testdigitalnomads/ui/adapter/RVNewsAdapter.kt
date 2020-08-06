@@ -3,12 +3,14 @@ package com.evgeny.testdigitalnomads.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.evgeny.testdigitalnomads.R
 import com.evgeny.testdigitalnomads.databinding.ItemNewsBinding
-import com.evgeny.testdigitalnomads.model.Bid
 import com.evgeny.testdigitalnomads.model.News
 import com.evgeny.testdigitalnomads.mvvm.view.NewsView
+import com.evgeny.testdigitalnomads.util.mlg
+import com.evgeny.testdigitalnomads.util.updateDiffUtil
 
 
 class RVNewsAdapter(private val newsView: NewsView) :
@@ -16,8 +18,8 @@ class RVNewsAdapter(private val newsView: NewsView) :
 
     var list: List<News> = listOf()
         set(value) {
+            this.updateDiffUtil<News>(list, value)
             field = value
-            notifyDataSetChanged()
         }
 
     //==============================================================================================

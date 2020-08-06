@@ -11,7 +11,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import com.evgeny.testdigitalnomads.repository.network.MainApiHelper
 import java.util.concurrent.TimeUnit
 
 
@@ -44,9 +43,6 @@ val NetworkModule = module {
     single { get<Retrofit>().create(MainApi::class.java) }
 
     // MainApiClient
-    single { MainApiClient(get<MainApiHelper>()) }
-
-    // MainApiHelper
-    single { MainApiHelper(get()) }
+    single { MainApiClient(get()) }
 
 }

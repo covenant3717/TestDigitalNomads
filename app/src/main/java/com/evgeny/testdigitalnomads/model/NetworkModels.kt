@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 
 
+/*
 data class BaseResponse<T>(
     @SerializedName("result") val result: SubBaseResponse<T>
 ) {
@@ -14,18 +15,24 @@ data class BaseResponse<T>(
         @SerializedName("error_msg") val error_msg: String
     )
 }
+*/
 
-
-// REQUEST ↓ ↓ ↓ ===================================================================================
-data class Auth(
-    @SerializedName("user") val login: String,
-    @SerializedName("pass") val pass: String
+data class BaseResponse<T>(
+    @SerializedName("status") val status: String?,
+    @SerializedName("articles") val articles: T?,
+    @SerializedName("code") val errCode: String?,
+    @SerializedName("message") val errMessage: String?
 )
 
 
+// REQUEST ↓ ↓ ↓ ===================================================================================
+
+
 // RESPONSE ↓ ↓ ↓ ==================================================================================
-data class AuthResult(
-    @SerializedName("userID") val userID: String,
-    @SerializedName("userFIO") val userFIO: String,
-    @SerializedName("profession") val profession: String
+data class NetNews(
+    @SerializedName("publishedAt") val date: String?,
+    @SerializedName("urlToImage") val imageUrl: String?,
+    @SerializedName("title") val title: String?,
+    @SerializedName("description") val description: String?,
+    @SerializedName("url") val url: String?
 )

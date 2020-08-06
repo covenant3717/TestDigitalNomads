@@ -6,10 +6,14 @@ import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import coil.transform.RoundedCornersTransformation
 import com.evgeny.testdigitalnomads.R
+import com.evgeny.testdigitalnomads.model.Bid
+import com.evgeny.testdigitalnomads.model.News
+import com.evgeny.testdigitalnomads.ui.adapter.RVNewsAdapter
 import com.evgeny.testdigitalnomads.util.invisible
 import com.evgeny.testdigitalnomads.util.visible
 import java.io.File
@@ -51,8 +55,14 @@ fun setAdapterRV(rv: RecyclerView, adapter: RecyclerView.Adapter<*>) {
 fun setNewsImage(view: ImageView, imageUrl: String) {
     view.load(imageUrl) {
         crossfade(500)
-//        placeholder(R.drawable.cmn_placeholder)
         error(R.drawable.cmn_placeholder)
-        transformations(RoundedCornersTransformation(26f))
+        transformations(RoundedCornersTransformation(24f))
+    }
+}
+
+@BindingAdapter("setNewsList")
+fun setNewsList(rv: RecyclerView, list: MutableLiveData<MutableList<News>>) {
+    list.value?.let {
+        (rv.adapter as? RVNewsAdapter)?.list  = it
     }
 }

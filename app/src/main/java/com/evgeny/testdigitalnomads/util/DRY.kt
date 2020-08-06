@@ -14,6 +14,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.Observable
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.evgeny.testdigitalnomads.App
 import com.evgeny.testdigitalnomads.R
 import com.google.gson.Gson
@@ -107,6 +109,26 @@ fun View.visible() {
 fun View.gone() {
     this.visibility = View.GONE
 }
+
+fun <T> RecyclerView.Adapter<RecyclerView.ViewHolder>.updateDiffUtil(oldList: List<T>, newList: List<T>) {
+    val diffItemCallback = object : DiffUtil.Callback() {
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
+        }
+
+        override fun getOldListSize() = oldList.size
+        override fun getNewListSize() = newList.size
+    }
+
+    val diffResult = DiffUtil.calculateDiff(diffItemCallback)
+    diffResult.dispatchUpdatesTo(this)
+}
+
 
 //==================================================================================== METHODS ↓ ↓ ↓
 
