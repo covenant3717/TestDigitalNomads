@@ -1,12 +1,10 @@
 package com.evgeny.testdigitalnomads.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.evgeny.testdigitalnomads.R
-import com.evgeny.testdigitalnomads.TAG_ACTIVITY_NEWS
+import com.evgeny.testdigitalnomads.util.TAG_ACTIVITY_NEWS
 import com.evgeny.testdigitalnomads.base.BaseActivity
 import com.evgeny.testdigitalnomads.databinding.ActivityMainBinding
-import com.evgeny.testdigitalnomads.launchActivity
+import com.evgeny.testdigitalnomads.util.launchActivity
 import com.evgeny.testdigitalnomads.mvvm.vm.MainVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,7 +24,7 @@ class MainActivity : BaseActivity() {
         initStartActivity(mainVM){
             when (it) {
                 TAG_ACTIVITY_NEWS -> {
-//                    launchActivity<BidsActivity>()
+                    launchActivity<NewsActivity>()
                     finish()
                 }
             }

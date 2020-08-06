@@ -1,7 +1,7 @@
 package com.evgeny.testdigitalnomads.di
 
 import com.evgeny.testdigitalnomads.App
-import com.evgeny.testdigitalnomads.BASE_URL
+import com.evgeny.testdigitalnomads.util.BASE_URL
 import com.evgeny.testdigitalnomads.repository.network.MainApi
 import com.evgeny.testdigitalnomads.repository.network.MainApiClient
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#000000</color>
-    <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#000000</color>
+    <color name="colorPrimaryDark">#DFDFDF</color>
+    <color name="colorPrimary">#325181</color>
+    <color name="colorAccent">#FFC484</color>
+
+    <color name="cmn_background">#FCFCFC</color>
+
+
+    <!--NewsActivity-->
+    <color name="news_title">@color/colorPrimary</color>
+    <color name="news_date">#80325181</color>
+
+
+
+
 </resources>

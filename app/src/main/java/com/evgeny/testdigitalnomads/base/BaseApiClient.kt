@@ -1,9 +1,9 @@
 package com.evgeny.testdigitalnomads.base
 
 import com.evgeny.testdigitalnomads.R
-import com.evgeny.testdigitalnomads.getStringRes
-import com.evgeny.testdigitalnomads.isConnected
-import com.evgeny.testdigitalnomads.mlg
+import com.evgeny.testdigitalnomads.util.getStringRes
+import com.evgeny.testdigitalnomads.util.isConnected
+import com.evgeny.testdigitalnomads.util.mlg
 import com.evgeny.testdigitalnomads.model.BaseResponse
 import retrofit2.HttpException
 import ru.vippolis.employeecontrol.repository.Resource
@@ -41,17 +41,26 @@ open class BaseApiClient {
     private fun checkException(e: Throwable): Resource.Error {
         return when (e) {
             is HttpException -> {
-                mlg("HttpException: ${e.message()}", CALL_TAG)
+                mlg(
+                    "HttpException: ${e.message()}",
+                    CALL_TAG
+                )
                 Resource.Error("${e.code()} ${e.message()}")
             }
 
             is SocketTimeoutException -> {
-                mlg("SocketTimeoutException: ${e.message}", CALL_TAG)
+                mlg(
+                    "SocketTimeoutException: ${e.message}",
+                    CALL_TAG
+                )
                 Resource.Error(getStringRes(R.string.internet_timeout))
             }
 
             else -> {
-                mlg("Throwable: ${e.message}", CALL_TAG)
+                mlg(
+                    "Throwable: ${e.message}",
+                    CALL_TAG
+                )
                 Resource.Error(getStringRes(R.string.internet_something_went_wrong))
             }
         }

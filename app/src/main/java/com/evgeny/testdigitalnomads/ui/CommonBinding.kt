@@ -9,8 +9,8 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.evgeny.testdigitalnomads.R
-import com.evgeny.testdigitalnomads.invisible
-import com.evgeny.testdigitalnomads.visible
+import com.evgeny.testdigitalnomads.util.invisible
+import com.evgeny.testdigitalnomads.util.visible
 import java.io.File
 
 

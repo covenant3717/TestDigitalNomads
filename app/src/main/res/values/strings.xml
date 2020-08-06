@@ -8,4 +8,8 @@
     <string name="internet_something_went_wrong">Что-то пошло не так...\nПопрбуйте подключиться позже.</string>
     <string name="progress_screen_hint">Пожалуйста, подождите...</string>
 
+    <!--NewsActivity-->
+    <string name="news_title">Новости</string>
+
+
 </resources>

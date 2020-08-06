@@ -1,42 +1,22 @@
-package com.evgeny.testdigitalnomads
+package com.evgeny.testdigitalnomads.util
 
-import android.app.Activity
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
-import android.util.Base64
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
-import android.webkit.MimeTypeMap
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.Observable
-import coil.api.load
-import coil.transform.CircleCropTransformation
-import com.google.android.material.snackbar.Snackbar
+import com.evgeny.testdigitalnomads.App
+import com.evgeny.testdigitalnomads.R
 import com.google.gson.Gson
-import kotlinx.coroutines.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
-import okio.ByteString
-import java.io.*
-import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -136,6 +116,11 @@ fun getStringRes(stringRes: Int): String {
 
 fun getColorRes(colorRes: Int): Int {
     return App.appCtx.resources.getColor(colorRes)
+}
+
+fun getCurrentDate(datePattern: String): String {
+    val sdf = SimpleDateFormat(datePattern, Locale.getDefault())
+    return sdf.format(Date())
 }
 
 fun isConnected(): Boolean {

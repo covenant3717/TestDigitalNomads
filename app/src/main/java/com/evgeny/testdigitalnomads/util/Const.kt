@@ -1,4 +1,4 @@
-package com.evgeny.testdigitalnomads
+package com.evgeny.testdigitalnomads.util
 
 
 // NETWORK -----------------------------------------------------------------------------------------
@@ -18,6 +18,10 @@ const val TABLE_COMPLETE_BIDS = "complete_bids"
 // ACTIVITY TAG ------------------------------------------------------------------------------------
 const val TAG_ACTIVITY_MAIN = "TAG_ACTIVITY_MAIN"
 const val TAG_ACTIVITY_NEWS = "TAG_ACTIVITY_NEWS"
+
+
+// DATE PATTERN ------------------------------------------------------------------------------------
+const val DATE_PATTERN_NEWS_MAIN_DATE = "EEEE, dd MMMM yyyy"
 
 
 // INTENT (put extra) ------------------------------------------------------------------------------
