@@ -7,10 +7,9 @@ import com.evgeny.testdigitalnomads.base.BaseVM
 import com.evgeny.testdigitalnomads.model.News
 import com.evgeny.testdigitalnomads.mvvm.view.NewsView
 import com.evgeny.testdigitalnomads.repository.toListNews
+import com.evgeny.testdigitalnomads.ui.activity.WebViewActivity
 import com.evgeny.testdigitalnomads.ui.adapter.RVNewsAdapter
-import com.evgeny.testdigitalnomads.util.DATE_PATTERN_NEWS_MAIN_DATE
-import com.evgeny.testdigitalnomads.util.getCurrentDate
-import com.evgeny.testdigitalnomads.util.mlg
+import com.evgeny.testdigitalnomads.util.*
 import ru.vippolis.employeecontrol.repository.Resource
 
 
@@ -78,7 +77,9 @@ class NewsVM : BaseVM(), NewsView {
     override val newsList: MutableLiveData<List<News>> = MutableLiveData(emptyList())
 
     override fun btnOpenNews(view: View?, currentNews: News) {
-//        newsList.postValue(list2)
+        view?.context?.launchActivity<WebViewActivity> {
+            putExtra(POST_URL, currentNews.url)
+        }
     }
 
     init {

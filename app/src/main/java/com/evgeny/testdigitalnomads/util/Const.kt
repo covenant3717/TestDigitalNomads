@@ -26,6 +26,5 @@ const val DATE_PATTERN_NEWS_MAIN_DATE = "EEEE, dd MMMM yyyy"
 
 
 // INTENT (put extra) ------------------------------------------------------------------------------
-const val BID = "BID"
-const val IMAGE_ATTACHMENT_NAME = "IMAGE_ATTACHMENT_NAME"
+const val POST_URL = "POST_URL"
 

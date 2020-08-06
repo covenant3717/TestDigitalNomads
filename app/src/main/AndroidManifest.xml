@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.NewsActivity"></activity>
+        <activity android:name=".ui.activity.WebViewActivity"></activity>
+        <activity android:name=".ui.activity.NewsActivity" />
         <activity
             android:name=".ui.activity.MainActivity"
             android:theme="@style/SplashScreenTheme">
