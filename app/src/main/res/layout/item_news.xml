@@ -17,8 +17,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{(view) -> ui.btnOpenNews(view, item)}"
-        android:background="?android:attr/selectableItemBackground">
+        android:background="?android:attr/selectableItemBackground"
+        android:onClick="@{(view) -> ui.btnOpenNews(view, item)}">
 
         <TextView
             android:id="@+id/textView3"
@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="sans-serif-medium"
             android:text="@{item.date}"
             android:textColor="@color/item_news_date"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,18 +41,18 @@
             android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
             android:adjustViewBounds="true"
-            app:setNewsImage="@{item.imageUrl}"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:setNewsImage="@{item.imageUrl}"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-medium"
             android:text="@{item.title}"
             android:textColor="@color/item_news_title"
@@ -66,17 +67,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="4dp"
             android:ellipsize="end"
             android:maxLines="3"
             android:text="@{item.description}"
             android:textColor="@color/item_news_desc"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
             tools:text="Un verano más. Un UNPACKED más. Y este año por fortuna para nosotros cargadito de novedades en la Galaxia de una Samsung que vuelve a ponerse al frente del comando Android, con unos Galaxy Note20 y Galaxy Note20 Ultra hechos para ganar y bien acompañados por …" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

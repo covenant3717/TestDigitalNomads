@@ -10,6 +10,7 @@ val RepositoryModule = module {
 
     // Repository
     single {
-        Repository(get<MainApiClient>(), get<MainDao>())
+//        Repository(get<MainApiClient>(), get<MainDao>())
+        Repository(get<MainApiClient>())
     }
 }

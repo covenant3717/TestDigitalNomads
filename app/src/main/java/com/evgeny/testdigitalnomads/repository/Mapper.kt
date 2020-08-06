@@ -1,37 +1,27 @@
 package com.evgeny.testdigitalnomads.repository
 
-import com.evgeny.testdigitalnomads.model.Bid
+import com.evgeny.testdigitalnomads.model.NetNews
+import com.evgeny.testdigitalnomads.model.News
 
 
-
-/*
-fun NetBid.toBid() = Bid(
-    bidId = bidId ?: "",
-    bidType = bidType ?: "",
-    number = bidNumber ?: "",
-    name = bidName ?: "",
-    address = bidAddress ?: "",
-    info = bidInfo ?: "",
-    color = bidColor ?: "",
-    icon = bidIcon ?: "",
-    masterPhone = bidMasterPhone ?: "",
-    newComments = bidNewComments ?: 0,
-    sort = bidSort ?: ""
+fun NetNews.toNews() = News(
+    date = date?.substring(0, 10) ?: "",
+    imageUrl = imageUrl ?: "",
+    title = title ?: "",
+    description = description ?: "",
+    url = url ?: ""
 )
 
-fun List<NetBid?>?.toBidList(): List<Bid> {
-    val completeList = mutableListOf<Bid>()
+fun List<NetNews?>?.toListNews(): List<News> {
+    val completeList = mutableListOf<News>()
 
     this?.forEach {
-        val item = it?.toBid()
+        val item = it?.toNews()
         item?.let {
-            if (item.bidId.isNotEmpty()) {
-                completeList.add(item)
-            }
+            completeList.add(item)
         }
     }
 
     return completeList
 }
 
-*/

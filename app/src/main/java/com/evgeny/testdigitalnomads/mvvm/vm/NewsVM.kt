@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.evgeny.testdigitalnomads.base.BaseVM
 import com.evgeny.testdigitalnomads.model.News
 import com.evgeny.testdigitalnomads.mvvm.view.NewsView
+import com.evgeny.testdigitalnomads.repository.toListNews
 import com.evgeny.testdigitalnomads.ui.adapter.RVNewsAdapter
 import com.evgeny.testdigitalnomads.util.DATE_PATTERN_NEWS_MAIN_DATE
 import com.evgeny.testdigitalnomads.util.getCurrentDate
@@ -77,7 +78,7 @@ class NewsVM : BaseVM(), NewsView {
     override val newsList: MutableLiveData<List<News>> = MutableLiveData(emptyList())
 
     override fun btnOpenNews(view: View?, currentNews: News) {
-        newsList.postValue(list2)
+//        newsList.postValue(list2)
     }
 
     init {
@@ -93,9 +94,6 @@ class NewsVM : BaseVM(), NewsView {
     }
 
     private fun getNews(page: Int = 1) = launchOnViewModelScope {
-        newsList.postValue(list1)
-
-/*
         repository.getNews(page = page) { response ->
             when (response) {
                 is Resource.Success -> newsList.postValue(response.value)
@@ -103,7 +101,6 @@ class NewsVM : BaseVM(), NewsView {
                 is Resource.Progress -> progress.postValue(response.isLoading)
             }
         }
-*/
 
     }
 

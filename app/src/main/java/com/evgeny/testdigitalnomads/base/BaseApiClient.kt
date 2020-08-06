@@ -31,7 +31,7 @@ open class BaseApiClient {
         val responseOk = response.status
         return if (responseOk == "ok") {
             if (response.articles != null) Resource.Success(response.articles)
-            else Resource.Error("Данные отсутсвуют")
+            else Resource.Error("Данные отсутствуют")
         } else {
             val errCode = response.errCode
             val errMsg = response.errMessage

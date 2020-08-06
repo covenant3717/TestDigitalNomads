@@ -2,21 +2,17 @@ package com.evgeny.testdigitalnomads.repository.network
 
 import com.evgeny.testdigitalnomads.model.BaseResponse
 import com.evgeny.testdigitalnomads.model.NetNews
-import okhttp3.RequestBody
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 
 interface MainApi {
 
-/*
-    @Multipart
-    @POST("./")
+    //    @GET("./{page}")
+    @GET("everything?q=android&from=2019-04-00&sortBy=publishedAt&apiKey=26eddb253e7840f988aec61f2ece2907")
     suspend fun getNews(
-        @Part("id") id: RequestBody
-    ): BaseResponse
-*/
+        @Query("page") page: Int
+    ): BaseResponse<List<NetNews>>
 
 
 }

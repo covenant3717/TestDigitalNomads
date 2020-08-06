@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import coil.transform.RoundedCornersTransformation
 import com.evgeny.testdigitalnomads.R
-import com.evgeny.testdigitalnomads.model.Bid
 import com.evgeny.testdigitalnomads.model.News
 import com.evgeny.testdigitalnomads.ui.adapter.RVNewsAdapter
 import com.evgeny.testdigitalnomads.util.invisible
@@ -55,7 +54,7 @@ fun setAdapterRV(rv: RecyclerView, adapter: RecyclerView.Adapter<*>) {
 fun setNewsImage(view: ImageView, imageUrl: String) {
     view.load(imageUrl) {
         crossfade(500)
-        error(R.drawable.cmn_placeholder)
+        error(R.drawable.cmn_placeholder_transparent)
         transformations(RoundedCornersTransformation(24f))
     }
 }
