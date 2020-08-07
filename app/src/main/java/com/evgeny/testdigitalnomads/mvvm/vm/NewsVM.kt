@@ -94,8 +94,8 @@ class NewsVM : BaseVM(), NewsView {
         date.set(currentDate)
     }
 
-    private fun getNews(page: Int = 1) = launchOnViewModelScope {
-        repository.getNews(page = page) { response ->
+    private fun getNews(page: Int = 1, pageSize: Int = 5) = launchOnViewModelScope {
+        repository.getNews(page = page, pageSize = pageSize) { response ->
             when (response) {
                 is Resource.Success -> newsList.postValue(response.value)
                 is Resource.Error -> toast.postValue(response.errorMessage)

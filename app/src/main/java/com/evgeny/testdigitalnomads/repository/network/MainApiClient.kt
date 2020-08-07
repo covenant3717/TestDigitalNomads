@@ -8,8 +8,8 @@ import kotlinx.coroutines.withContext
 
 class MainApiClient constructor(private val mainApi: MainApi) : BaseApiClient() {
 
-    suspend fun getNews(page: Int) = withContext(Dispatchers.IO) {
-        safeApiCall { mainApi.getNews(page = page) }
+    suspend fun getNews(page: Int, pageSize: Int) = withContext(Dispatchers.IO) {
+        safeApiCall { mainApi.getNews(page = page, pageSize = pageSize) }
     }
 
 

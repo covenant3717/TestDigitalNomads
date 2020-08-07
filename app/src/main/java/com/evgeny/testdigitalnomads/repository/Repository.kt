@@ -20,12 +20,12 @@ class Repository constructor(
     //==============================================================================================
 
     suspend fun getNews(
-        page: Int, onResult: (response: Resource<List<News>>) -> Unit
+        page: Int, pageSize: Int, onResult: (response: Resource<List<News>>) -> Unit
     ) = withContext(Dispatchers.IO) {
         if (isConnected()) {
             onResult(loading(true))
 
-            val response = mainApiClient.getNews(page = page)
+            val response = mainApiClient.getNews(page = page, pageSize = pageSize)
             onResult(
                 when (response) {
                     is Resource.Success -> Resource.Success(response.value.toListNews())
