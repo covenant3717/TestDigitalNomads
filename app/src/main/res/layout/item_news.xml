@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.evgeny.testdigitalnomads.model.News" />
+            type="com.evgeny.testdigitalnomads.model.DBNews" />
 
         <variable
             name="ui"

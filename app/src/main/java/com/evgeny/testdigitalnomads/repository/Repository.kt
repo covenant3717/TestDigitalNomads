@@ -1,8 +1,15 @@
 package com.evgeny.testdigitalnomads.repository
 
+import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.evgeny.testdigitalnomads.R
+import com.evgeny.testdigitalnomads.model.DBNews
 import com.evgeny.testdigitalnomads.model.News
 import com.evgeny.testdigitalnomads.repository.network.MainApiClient
+import com.evgeny.testdigitalnomads.repository.room.AppDatabase
+import com.evgeny.testdigitalnomads.repository.room.MainDao
+import com.evgeny.testdigitalnomads.util.NewsBoundaryCallback
 import com.evgeny.testdigitalnomads.util.getStringRes
 import com.evgeny.testdigitalnomads.util.isConnected
 import kotlinx.coroutines.Dispatchers
@@ -11,8 +18,8 @@ import ru.vippolis.employeecontrol.repository.Resource
 
 
 class Repository constructor(
-    private val mainApiClient: MainApiClient
-//    private val mainDao: MainDao
+    private val mainApiClient: MainApiClient,
+    private val mainDao: MainDao
 ) {
 
     private fun loading(load: Boolean) = Resource.Progress(load)
@@ -20,24 +27,35 @@ class Repository constructor(
     //==============================================================================================
 
     suspend fun getNews(
-        page: Int, pageSize: Int, onResult: (response: Resource<List<News>>) -> Unit
+        pageSize: Int, onResult: (response: Resource<List<News>>) -> Unit
     ) = withContext(Dispatchers.IO) {
         if (isConnected()) {
             onResult(loading(true))
 
-            val response = mainApiClient.getNews(page = page, pageSize = pageSize)
-            onResult(
+            val response = mainApiClient.getNews(pageSize = pageSize)
+//            onResult(
                 when (response) {
-                    is Resource.Success -> Resource.Success(response.value.toListNews())
+                    is Resource.Success -> {
+                        mainDao.insert(response.value.toListDBNews())
+                    }
                     is Resource.Error -> response
                     is Resource.Progress -> response
                 }
-            )
+//            )
 
             onResult(loading(false))
         } else {
             onResult(Resource.Error(getStringRes(R.string.internet_disconnected)))
         }
+    }
+
+    suspend fun getPagedNewsList(): LiveData<PagedList<DBNews>> = withContext(Dispatchers.IO) {
+        val pagedListBuilder: LivePagedListBuilder<Int, DBNews> =
+            LivePagedListBuilder<Int, DBNews>(mainDao.getNews(), 5)
+
+        pagedListBuilder.setBoundaryCallback(NewsBoundaryCallback())
+
+        return@withContext pagedListBuilder.build()
     }
 
 }

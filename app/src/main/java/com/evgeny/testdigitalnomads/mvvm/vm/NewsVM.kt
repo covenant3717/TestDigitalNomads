@@ -2,8 +2,11 @@ package com.evgeny.testdigitalnomads.mvvm.vm
 
 import android.view.View
 import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.PagedList
 import com.evgeny.testdigitalnomads.base.BaseVM
+import com.evgeny.testdigitalnomads.model.DBNews
 import com.evgeny.testdigitalnomads.model.News
 import com.evgeny.testdigitalnomads.mvvm.view.NewsView
 import com.evgeny.testdigitalnomads.repository.toListNews
@@ -14,8 +17,6 @@ import ru.vippolis.employeecontrol.repository.Resource
 
 
 class NewsVM : BaseVM(), NewsView {
-
-    val newsAdapter = RVNewsAdapter(this)
 
     private var list1 = listOf(
         News(
@@ -74,9 +75,9 @@ class NewsVM : BaseVM(), NewsView {
     //==============================================================================================
 
     override val date: ObservableField<String> = ObservableField("")
-    override val newsList: MutableLiveData<List<News>> = MutableLiveData(emptyList())
+//    override val newsList: MutableLiveData<PagedList<News>> = MutableLiveData(Pa)
 
-    override fun btnOpenNews(view: View?, currentNews: News) {
+    override fun btnOpenNews(view: View?, currentNews: DBNews) {
         view?.context?.launchActivity<WebViewActivity> {
             putExtra(POST_URL, currentNews.url)
         }
@@ -94,15 +95,21 @@ class NewsVM : BaseVM(), NewsView {
         date.set(currentDate)
     }
 
-    private fun getNews(page: Int = 1, pageSize: Int = 5) = launchOnViewModelScope {
-        repository.getNews(page = page, pageSize = pageSize) { response ->
+    private fun getNews(pageSize: Int = 5) = launchOnViewModelScope {
+        repository.getNews(pageSize = pageSize) { response ->
             when (response) {
-                is Resource.Success -> newsList.postValue(response.value)
+                is Resource.Success -> {
+                    // do something
+                }
                 is Resource.Error -> toast.postValue(response.errorMessage)
                 is Resource.Progress -> progress.postValue(response.isLoading)
             }
         }
 
+    }
+
+    suspend fun getPagedNewsList(): LiveData<PagedList<DBNews>> {
+        return repository.getPagedNewsList()
     }
 
 

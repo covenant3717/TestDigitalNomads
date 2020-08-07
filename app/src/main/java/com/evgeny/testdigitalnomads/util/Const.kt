@@ -12,8 +12,8 @@ const val BASE_URL = "https://newsapi.org/v2/"
 
 
 // DATABASE (ROOM) ---------------------------------------------------------------------------------
-const val DB_NAME = "employer_control_db"
-const val TABLE_COMPLETE_BIDS = "complete_bids"
+const val DB_NAME = "news_db"
+const val TABLE_NEWS = "news"
 
 
 // ACTIVITY TAG ------------------------------------------------------------------------------------
