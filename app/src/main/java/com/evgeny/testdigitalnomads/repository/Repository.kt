@@ -5,9 +5,9 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.evgeny.testdigitalnomads.R
 import com.evgeny.testdigitalnomads.model.DBNews
+import com.evgeny.testdigitalnomads.model.NetNews
 import com.evgeny.testdigitalnomads.model.News
 import com.evgeny.testdigitalnomads.repository.network.MainApiClient
-import com.evgeny.testdigitalnomads.repository.room.AppDatabase
 import com.evgeny.testdigitalnomads.repository.room.MainDao
 import com.evgeny.testdigitalnomads.util.NewsBoundaryCallback
 import com.evgeny.testdigitalnomads.util.getStringRes
@@ -26,22 +26,28 @@ class Repository constructor(
 
     //==============================================================================================
 
+    suspend fun clearNews() = withContext(Dispatchers.IO) {
+        mainDao.clearNews()
+    }
+
+    suspend fun saveNews(listNetNews: List<DBNews>) = withContext(Dispatchers.IO) {
+        mainDao.insert(listNetNews)
+    }
+
     suspend fun getNews(
-        pageSize: Int, onResult: (response: Resource<List<News>>) -> Unit
+        page: Int, onResult: (response: Resource<List<DBNews>>) -> Unit
     ) = withContext(Dispatchers.IO) {
         if (isConnected()) {
             onResult(loading(true))
 
-            val response = mainApiClient.getNews(pageSize = pageSize)
-//            onResult(
+            val response = mainApiClient.getNews(page = page)
+            onResult(
                 when (response) {
-                    is Resource.Success -> {
-                        mainDao.insert(response.value.toListDBNews())
-                    }
+                    is Resource.Success -> Resource.Success(response.value.toListDBNews())
                     is Resource.Error -> response
                     is Resource.Progress -> response
                 }
-//            )
+            )
 
             onResult(loading(false))
         } else {
@@ -50,12 +56,20 @@ class Repository constructor(
     }
 
     suspend fun getPagedNewsList(): LiveData<PagedList<DBNews>> = withContext(Dispatchers.IO) {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setPageSize(5)
+            .setPrefetchDistance(5)
+            .build()
+
         val pagedListBuilder: LivePagedListBuilder<Int, DBNews> =
-            LivePagedListBuilder<Int, DBNews>(mainDao.getNews(), 5)
+            LivePagedListBuilder<Int, DBNews>(mainDao.getNews(), config)
 
         pagedListBuilder.setBoundaryCallback(NewsBoundaryCallback())
 
         return@withContext pagedListBuilder.build()
     }
+
+
 
 }

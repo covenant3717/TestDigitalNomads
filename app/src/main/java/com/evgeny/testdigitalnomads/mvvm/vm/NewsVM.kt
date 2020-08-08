@@ -18,64 +18,9 @@ import ru.vippolis.employeecontrol.repository.Resource
 
 class NewsVM : BaseVM(), NewsView {
 
-    private var list1 = listOf(
-        News(
-            date = "06.08.2020",
-            imageUrl = "https://w.wallhaven.cc/full/ym/wallhaven-ym1egl.jpg",
-            title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            description = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        ),
-        News(
-            date = "06.08.2020",
-            imageUrl = "https://w.wallhaven.cc/full/kw/wallhaven-kwy1w7.jpg",
-            title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            description = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        ),
-        News(
-            date = "06.08.2020",
-            imageUrl = "https://w.wallhaven.cc/full/zm/wallhaven-zmkzej.jpg",
-            title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            description = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        ),
-        News(
-            date = "06.08.2020",
-            imageUrl = "https://w.wallhaven.cc/full/dg/wallhaven-dg183o.jpg",
-            title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            description = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        )
-    )
-
-    private val list2 = listOf(
-        News(
-            date = "06.08.2020",
-            imageUrl = "https://w.wallhaven.cc/full/2e/wallhaven-2em2xx.jpg",
-            title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            description = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        ),
-        News(
-            date = "06.08.2020",
-            imageUrl = "https://w.wallhaven.cc/full/kw/wallhaven-kwy1w7.jpg",
-            title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            description = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        ),
-        News(
-            date = "06.08.2020",
-            imageUrl = "https://w.wallhaven.cc/full/zm/wallhaven-zmkzej.jpg",
-            title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            description = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        ),
-        News(
-            date = "06.08.2020",
-            imageUrl = "https://w.wallhaven.cc/full/dg/wallhaven-dg183o.jpg",
-            title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            description = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        )
-    )
-
     //==============================================================================================
 
     override val date: ObservableField<String> = ObservableField("")
-//    override val newsList: MutableLiveData<PagedList<News>> = MutableLiveData(Pa)
 
     override fun btnOpenNews(view: View?, currentNews: DBNews) {
         view?.context?.launchActivity<WebViewActivity> {
@@ -85,7 +30,6 @@ class NewsVM : BaseVM(), NewsView {
 
     init {
         setDate()
-        getNews()
     }
 
     //==============================================================================================
@@ -93,19 +37,6 @@ class NewsVM : BaseVM(), NewsView {
     private fun setDate() = launchOnViewModelScope {
         val currentDate = getCurrentDate(DATE_PATTERN_NEWS_MAIN_DATE)
         date.set(currentDate)
-    }
-
-    private fun getNews(pageSize: Int = 5) = launchOnViewModelScope {
-        repository.getNews(pageSize = pageSize) { response ->
-            when (response) {
-                is Resource.Success -> {
-                    // do something
-                }
-                is Resource.Error -> toast.postValue(response.errorMessage)
-                is Resource.Progress -> progress.postValue(response.isLoading)
-            }
-        }
-
     }
 
     suspend fun getPagedNewsList(): LiveData<PagedList<DBNews>> {
