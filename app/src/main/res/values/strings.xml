@@ -10,6 +10,7 @@
 
     <!--NewsActivity-->
     <string name="news_title">Новости</string>
+    <string name="news_tv_refresh">Нажми, чтоб обновить...</string>
 
 
 </resources>

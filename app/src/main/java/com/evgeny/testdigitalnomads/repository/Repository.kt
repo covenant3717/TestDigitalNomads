@@ -22,34 +22,44 @@ class Repository constructor(
     private val mainDao: MainDao
 ) {
 
+    companion object {
+        var NEWS_PAGE = 1
+    }
+
     private fun loading(load: Boolean) = Resource.Progress(load)
 
     //==============================================================================================
+
+    private suspend fun saveNews(listNetNews: List<DBNews>) = withContext(Dispatchers.IO) {
+        mainDao.insert(listNetNews)
+    }
 
     suspend fun clearNews() = withContext(Dispatchers.IO) {
         mainDao.clearNews()
     }
 
-    suspend fun saveNews(listNetNews: List<DBNews>) = withContext(Dispatchers.IO) {
-        mainDao.insert(listNetNews)
-    }
-
     suspend fun getNews(
-        page: Int, onResult: (response: Resource<List<DBNews>>) -> Unit
+        onResult: (response: Resource<String>) -> Unit
     ) = withContext(Dispatchers.IO) {
-        if (isConnected()) {
-            onResult(loading(true))
+        if (NEWS_PAGE <= 5) {
+            if (isConnected()) {
+                onResult(loading(true))
 
-            val response = mainApiClient.getNews(page = page)
-            onResult(
-                when (response) {
-                    is Resource.Success -> Resource.Success(response.value.toListDBNews())
-                    is Resource.Error -> response
-                    is Resource.Progress -> response
-                }
-            )
+                val response = mainApiClient.getNews(page = NEWS_PAGE)
+                onResult(
+                    when (response) {
+                        is Resource.Success -> {
+                            saveNews(response.value.toListDBNews())
+                            NEWS_PAGE += 1
+                            Resource.Success("success")
+                        }
+                        is Resource.Error -> response
+                        is Resource.Progress -> response
+                    }
+                )
 
-            onResult(loading(false))
+                onResult(loading(false))
+            }
         } else {
             onResult(Resource.Error(getStringRes(R.string.internet_disconnected)))
         }
@@ -69,7 +79,6 @@ class Repository constructor(
 
         return@withContext pagedListBuilder.build()
     }
-
 
 
 }

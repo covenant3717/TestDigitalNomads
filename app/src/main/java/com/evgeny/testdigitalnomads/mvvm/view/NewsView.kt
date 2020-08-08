@@ -12,7 +12,9 @@ import com.evgeny.testdigitalnomads.model.News
 interface NewsView: BaseView {
 
     val date: ObservableField<String>
-//    val newsList: MutableLiveData<PagedList<News>>
+    val rvVsbl: MutableLiveData<Boolean>
+    val tvRefreshVsbl: MutableLiveData<Boolean>
     fun btnOpenNews(view: View?, currentNews: DBNews)
+    fun btnRefresh(view: View?)
 
 }

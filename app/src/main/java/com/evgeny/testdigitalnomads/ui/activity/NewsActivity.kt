@@ -7,6 +7,7 @@ import com.evgeny.testdigitalnomads.base.BaseActivity
 import com.evgeny.testdigitalnomads.databinding.ActivityNewsBinding
 import com.evgeny.testdigitalnomads.mvvm.vm.NewsVM
 import com.evgeny.testdigitalnomads.ui.adapter.RVNewsAdapter
+import com.evgeny.testdigitalnomads.util.visible
 import kotlinx.android.synthetic.main.activity_news.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,7 +28,6 @@ class NewsActivity : BaseActivity() {
         }
 
         initRvNews()
-
     }
     
     //==============================================================================================
@@ -39,6 +39,7 @@ class NewsActivity : BaseActivity() {
         lifecycleScope.launch {
             newsVM.getPagedNewsList().observe(this@NewsActivity, Observer {
                 newsAdapter?.submitList(it)
+                if (it.isNotEmpty()) news_rv.visible()
             })
         }
     }

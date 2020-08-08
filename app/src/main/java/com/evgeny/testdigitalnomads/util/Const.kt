@@ -4,11 +4,6 @@ package com.evgeny.testdigitalnomads.util
 // NETWORK -----------------------------------------------------------------------------------------
 //const val BASE_URL = "https://newsapi.org/v2/everything?q=android&from=2019-04-00&sortBy=publishedAt&apiKey=26eddb253e7840f988aec61f2ece2907&page="
 const val BASE_URL = "https://newsapi.org/v2/"
-//val REQ_AUTH = toMultipartFormData("Auth")
-//val REQ_GET_BIDS = toMultipartFormData("RequestList")
-//val REQ_COMPLETE_REQUEST = toMultipartFormData("UpdateRequest")
-//val REQ_BID_ATTACHMENT = toMultipartFormData("Attachment")
-//val REQ_GET_FILE = toMultipartFormData("GetFile")
 
 
 // DATABASE (ROOM) ---------------------------------------------------------------------------------
