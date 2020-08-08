@@ -6,7 +6,7 @@ import com.evgeny.testdigitalnomads.util.isConnected
 import com.evgeny.testdigitalnomads.util.mlg
 import com.evgeny.testdigitalnomads.model.BaseResponse
 import retrofit2.HttpException
-import ru.vippolis.employeecontrol.repository.Resource
+import com.evgeny.testdigitalnomads.repository.Resource
 import java.net.SocketTimeoutException
 
 open class BaseApiClient {

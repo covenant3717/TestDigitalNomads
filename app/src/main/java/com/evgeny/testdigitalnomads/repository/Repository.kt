@@ -1,21 +1,14 @@
 package com.evgeny.testdigitalnomads.repository
 
-import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
 import com.evgeny.testdigitalnomads.R
 import com.evgeny.testdigitalnomads.model.DBNews
-import com.evgeny.testdigitalnomads.model.NetNews
-import com.evgeny.testdigitalnomads.model.News
 import com.evgeny.testdigitalnomads.repository.network.MainApiClient
 import com.evgeny.testdigitalnomads.repository.room.MainDao
-import com.evgeny.testdigitalnomads.util.NewsBoundaryCallback
 import com.evgeny.testdigitalnomads.util.getStringRes
 import com.evgeny.testdigitalnomads.util.isConnected
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.vippolis.employeecontrol.repository.Resource
 
 
 class Repository constructor(

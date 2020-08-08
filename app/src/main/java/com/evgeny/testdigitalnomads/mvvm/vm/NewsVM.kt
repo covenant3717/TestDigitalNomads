@@ -15,10 +15,7 @@ import com.evgeny.testdigitalnomads.mvvm.view.NewsView
 import com.evgeny.testdigitalnomads.ui.activity.WebViewActivity
 import com.evgeny.testdigitalnomads.ui.adapter.RVNewsAdapter
 import com.evgeny.testdigitalnomads.util.*
-import kotlinx.android.synthetic.main.activity_news.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import ru.vippolis.employeecontrol.repository.Resource
+import com.evgeny.testdigitalnomads.repository.Resource
 
 
 class NewsVM : BaseVM(), NewsView, NewsBoundaryCallback.OnNewsBoundaryCallback {
@@ -81,9 +78,9 @@ class NewsVM : BaseVM(), NewsView, NewsBoundaryCallback.OnNewsBoundaryCallback {
                     }
                     is Resource.Error -> {
                         toast.postValue(response.errorMessage)
-                        tvRefreshVsbl.postValue(true)
-                        rvVsbl.postValue(false)
                         progress.postValue(false)
+//                        tvRefreshVsbl.postValue(true)
+//                        rvVsbl.postValue(false)
                     }
                     is Resource.Progress -> {
 //                        progress.postValue(response.isLoading)
