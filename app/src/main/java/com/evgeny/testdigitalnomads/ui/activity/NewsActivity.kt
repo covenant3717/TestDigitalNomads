@@ -27,5 +27,10 @@ class NewsActivity : BaseActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        newsVM.clear()
+    }
+
 
 }

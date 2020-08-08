@@ -34,9 +34,9 @@ abstract class BaseVM() : ViewModel(), BaseView, KoinComponent {
         }
     }
 
-    private fun clear() {
+    fun clear() {
         toast.postValue(null)
-        progress.postValue(null)
+        progress.postValue(false)
         startActivity.postValue(null)
     }
 

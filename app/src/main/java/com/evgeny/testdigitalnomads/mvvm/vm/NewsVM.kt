@@ -62,7 +62,7 @@ class NewsVM : BaseVM(), NewsView, NewsBoundaryCallback.OnNewsBoundaryCallback {
     private fun initNewsPagedListListener() = launchOnViewModelScope {
         progress.postValue(true)
         initPagedNewsList().observeForever(Observer {
-            if (it.isNotEmpty()) {
+            if (it.isNotEmpty()){
                 newsPagedList?.postValue(it)
 
                 rvVsbl.postValue(true)
@@ -83,7 +83,6 @@ class NewsVM : BaseVM(), NewsView, NewsBoundaryCallback.OnNewsBoundaryCallback {
             repository.getNews(NEWS_PAGE) { response ->
                 when (response) {
                     is Resource.Success -> {
-                        adapterStateLD.postValue(NetState.SUCCESS)
                         NEWS_PAGE += 1
                     }
                     is Resource.Error -> {
