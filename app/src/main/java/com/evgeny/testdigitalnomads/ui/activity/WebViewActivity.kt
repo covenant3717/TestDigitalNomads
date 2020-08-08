@@ -54,7 +54,7 @@ class WebViewActivity : AppCompatActivity() {
 
                 web_pb.progress = progress
                 if (progress == 100) {
-                    web_pb.visibility = ProgressBar.GONE
+                    web_view.visible()
                 }
             }
         }
