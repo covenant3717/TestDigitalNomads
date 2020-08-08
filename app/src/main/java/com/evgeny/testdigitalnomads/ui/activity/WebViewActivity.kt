@@ -40,7 +40,7 @@ class WebViewActivity : AppCompatActivity() {
 
                 return if (super.getDefaultVideoPoster() == null) {
                     BitmapFactory.decodeResource(this@WebViewActivity.resources,
-                        R.drawable.cmn_placeholder_transparent
+                        R.drawable.cmn_placeholder
                     )
                 } else {
                     super.getDefaultVideoPoster()

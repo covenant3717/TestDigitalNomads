@@ -56,7 +56,8 @@ fun setAdapterRV(rv: RecyclerView, adapter: RecyclerView.Adapter<*>) {
 fun setNewsImage(view: ImageView, imageUrl: String) {
     view.load(imageUrl) {
         crossfade(300)
-        error(R.drawable.cmn_placeholder_transparent)
+//        placeholder(R.drawable.cmn_placeholder)
+        error(R.drawable.cmn_placeholder_error)
         transformations(RoundedCornersTransformation(24f))
     }
 }

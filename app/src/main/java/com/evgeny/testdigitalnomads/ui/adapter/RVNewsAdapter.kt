@@ -107,12 +107,6 @@ class RVNewsAdapter(private val newsView: NewsView) :
                     itemView.footer_pb.visibility = View.INVISIBLE
                 }
             }
-
-//            itemView.footer_tv_refresh.visibility =
-//                if (state == NetState.ERROR) View.VISIBLE else View.INVISIBLE
-//
-//            if (state == NetState.LOADING) itemView.footer_pb.visibility = View.VISIBLE
-//            if (state == NetState.LOADED) itemView.footer_pb.visibility = View.INVISIBLE
         }
     }
 }
