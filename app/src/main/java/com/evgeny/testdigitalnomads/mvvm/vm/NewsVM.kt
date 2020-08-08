@@ -16,11 +16,13 @@ import com.evgeny.testdigitalnomads.ui.activity.WebViewActivity
 import com.evgeny.testdigitalnomads.ui.adapter.RVNewsAdapter
 import com.evgeny.testdigitalnomads.util.*
 import com.evgeny.testdigitalnomads.repository.Resource
+import com.evgeny.testdigitalnomads.repository.network.NetState
 
 
 class NewsVM : BaseVM(), NewsView, NewsBoundaryCallback.OnNewsBoundaryCallback {
 
     private var NEWS_PAGE = 1
+    private val adapterStateLD = MutableLiveData<NetState>()
     var newsAdapter = RVNewsAdapter(this)
 
     //==============================================================================================
@@ -44,6 +46,7 @@ class NewsVM : BaseVM(), NewsView, NewsBoundaryCallback.OnNewsBoundaryCallback {
 
     init {
         initNewsPagedListListener()
+        initAdapterStateListener()
     }
 
     override fun onZeroItemsLoaded() {
@@ -59,7 +62,7 @@ class NewsVM : BaseVM(), NewsView, NewsBoundaryCallback.OnNewsBoundaryCallback {
     private fun initNewsPagedListListener() = launchOnViewModelScope {
         progress.postValue(true)
         initPagedNewsList().observeForever(Observer {
-            if (it.isNotEmpty()){
+            if (it.isNotEmpty()) {
                 newsPagedList?.postValue(it)
 
                 rvVsbl.postValue(true)
@@ -69,21 +72,28 @@ class NewsVM : BaseVM(), NewsView, NewsBoundaryCallback.OnNewsBoundaryCallback {
         })
     }
 
+    private fun initAdapterStateListener() {
+        adapterStateLD.observeForever(Observer {
+            newsAdapter.setState(it)
+        })
+    }
+
     private fun getNews() = launchOnViewModelScope {
         if (NEWS_PAGE <= 5) {
             repository.getNews(NEWS_PAGE) { response ->
                 when (response) {
                     is Resource.Success -> {
+                        adapterStateLD.postValue(NetState.SUCCESS)
                         NEWS_PAGE += 1
                     }
                     is Resource.Error -> {
                         toast.postValue(response.errorMessage)
                         progress.postValue(false)
-//                        tvRefreshVsbl.postValue(true)
-//                        rvVsbl.postValue(false)
+                        adapterStateLD.postValue(NetState.ERROR)
                     }
                     is Resource.Progress -> {
-//                        progress.postValue(response.isLoading)
+                        if (response.isLoading) adapterStateLD.postValue(NetState.LOADING)
+                        if (!response.isLoading) adapterStateLD.postValue(NetState.LOADED)
                     }
                 }
             }

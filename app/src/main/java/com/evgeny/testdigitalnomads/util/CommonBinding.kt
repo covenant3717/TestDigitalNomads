@@ -65,6 +65,5 @@ fun setNewsImage(view: ImageView, imageUrl: String) {
 fun setNewsList(rv: RecyclerView, list: MutableLiveData<PagedList<DBNews>?>?) {
     list?.value?.let {
         (rv.adapter as? RVNewsAdapter)?.submitList(it)
-        mlg(it.size.toString())
     }
 }
