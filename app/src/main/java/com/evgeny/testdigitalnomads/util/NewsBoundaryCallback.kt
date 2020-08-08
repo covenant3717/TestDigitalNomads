@@ -10,30 +10,26 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import ru.vippolis.employeecontrol.repository.Resource
 
-class NewsBoundaryCallback() : PagedList.BoundaryCallback<DBNews>(), KoinComponent {
+class NewsBoundaryCallback(private val listener: OnNewsBoundaryCallback) :
+    PagedList.BoundaryCallback<DBNews>() {
 
-    private val repository by inject<Repository>()
+    interface OnNewsBoundaryCallback {
+        fun onZeroItemsLoaded()
+        fun onItemAtEndLoaded()
+    }
 
     //==============================================================================================
 
     override fun onZeroItemsLoaded() {
         super.onZeroItemsLoaded()
 
+        listener.onZeroItemsLoaded()
     }
 
     override fun onItemAtEndLoaded(itemAtEnd: DBNews) {
         super.onItemAtEndLoaded(itemAtEnd)
-        mlg("LOAD")
 
-        GlobalScope.launch(Dispatchers.IO) {
-            repository.getNews() { response ->
-                when (response) {
-                    is Resource.Success -> {}
-                    is Resource.Error -> mlg(response.errorMessage.toString())
-                    is Resource.Progress -> mlg(response.isLoading.toString())
-                }
-            }
-        }
+        listener.onItemAtEndLoaded()
     }
 
 }

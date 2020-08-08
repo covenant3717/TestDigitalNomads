@@ -1,6 +1,7 @@
 package com.evgeny.testdigitalnomads.repository
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.evgeny.testdigitalnomads.R
@@ -22,10 +23,6 @@ class Repository constructor(
     private val mainDao: MainDao
 ) {
 
-    companion object {
-        var NEWS_PAGE = 1
-    }
-
     private fun loading(load: Boolean) = Resource.Progress(load)
 
     //==============================================================================================
@@ -34,50 +31,35 @@ class Repository constructor(
         mainDao.insert(listNetNews)
     }
 
-    suspend fun clearNews() = withContext(Dispatchers.IO) {
+    suspend fun clearCache() = withContext(Dispatchers.IO) {
         mainDao.clearNews()
     }
 
-    suspend fun getNews(
-        onResult: (response: Resource<String>) -> Unit
-    ) = withContext(Dispatchers.IO) {
-        if (NEWS_PAGE <= 5) {
-            if (isConnected()) {
-                onResult(loading(true))
-
-                val response = mainApiClient.getNews(page = NEWS_PAGE)
-                onResult(
-                    when (response) {
-                        is Resource.Success -> {
-                            saveNews(response.value.toListDBNews())
-                            NEWS_PAGE += 1
-                            Resource.Success("success")
-                        }
-                        is Resource.Error -> response
-                        is Resource.Progress -> response
-                    }
-                )
-
-                onResult(loading(false))
-            }
-        } else {
-            onResult(Resource.Error(getStringRes(R.string.internet_disconnected)))
-        }
+    fun getNewsDataSource(): DataSource.Factory<Int, DBNews> {
+        return mainDao.getNews()
     }
 
-    suspend fun getPagedNewsList(): LiveData<PagedList<DBNews>> = withContext(Dispatchers.IO) {
-        val config = PagedList.Config.Builder()
-            .setEnablePlaceholders(false)
-            .setPageSize(5)
-            .setPrefetchDistance(5)
-            .build()
+    suspend fun getNews(
+        page: Int, onResult: (response: Resource<String>) -> Unit
+    ) = withContext(Dispatchers.IO) {
+        if (isConnected()) {
+            onResult(loading(true))
 
-        val pagedListBuilder: LivePagedListBuilder<Int, DBNews> =
-            LivePagedListBuilder<Int, DBNews>(mainDao.getNews(), config)
+            val response = mainApiClient.getNews(page = page)
+            onResult(
+                when (response) {
+                    is Resource.Success -> {
+                        saveNews(response.value.toListDBNews())
+                        Resource.Success("success")
+                    }
+                    is Resource.Error -> response
+                    is Resource.Progress -> response
+                }
+            )
 
-        pagedListBuilder.setBoundaryCallback(NewsBoundaryCallback())
+            onResult(loading(false))
+        } else onResult(Resource.Error(getStringRes(R.string.internet_disconnected)))
 
-        return@withContext pagedListBuilder.build()
     }
 
 

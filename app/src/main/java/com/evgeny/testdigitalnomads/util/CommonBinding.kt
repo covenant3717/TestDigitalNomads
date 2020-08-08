@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import coil.transform.RoundedCornersTransformation
@@ -60,9 +61,10 @@ fun setNewsImage(view: ImageView, imageUrl: String) {
     }
 }
 
-@BindingAdapter("setNewsList")
-fun setNewsList(rv: RecyclerView, list: MutableLiveData<MutableList<DBNews>>) {
-    list.value?.let {
-//        (rv.adapter as? RVNewsAdapter)?.list  = it
+@BindingAdapter("setPagedNewsList")
+fun setNewsList(rv: RecyclerView, list: MutableLiveData<PagedList<DBNews>?>?) {
+    list?.value?.let {
+        (rv.adapter as? RVNewsAdapter)?.submitList(it)
+        mlg(it.size.toString())
     }
 }

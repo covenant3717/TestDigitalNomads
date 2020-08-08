@@ -17,33 +17,15 @@ class NewsActivity : BaseActivity() {
     private val newsVM: NewsVM by viewModel()
     private val binding: ActivityNewsBinding by binding(R.layout.activity_news)
 
-    private var newsAdapter: RVNewsAdapter? = null
-
     //==============================================================================================
 
     override fun initMain() {
         binding.apply {
             lifecycleOwner = this@NewsActivity
             ui = newsVM
-        }
-
-        initRvNews()
-    }
-    
-    //==============================================================================================
-
-    private fun initRvNews() {
-        newsAdapter = RVNewsAdapter(newsVM)
-        news_rv.adapter = newsAdapter
-
-        lifecycleScope.launch {
-            newsVM.getPagedNewsList().observe(this@NewsActivity, Observer {
-                newsAdapter?.submitList(it)
-                if (it.isNotEmpty()) news_rv.visible()
-            })
+            newsAdapter = newsVM.newsAdapter
         }
     }
-    
 
 
 }

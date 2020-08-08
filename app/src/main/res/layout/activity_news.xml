@@ -17,8 +17,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:toast="@{ui.toast}"
         android:background="@color/cmn_background"
+        app:toast="@{ui.toast}"
         tools:context=".ui.activity.NewsActivity">
 
         <TextView
@@ -38,22 +38,22 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Четверг, 6 августа 2020"
             android:text="@{ui.date}"
             android:textColor="@color/news_date"
             app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:text="Четверг, 6 августа 2020" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:progress="@{ui.progress}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:progress="@{ui.progress}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/news_rv"
@@ -70,19 +70,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:setPagedNewsList="@{ui.newsPagedList}"
+            app:setAdapterRV="@{newsAdapter}"
             app:viewVisibility="@{ui.rvVsbl}"
             tools:listitem="@layout/item_news" />
 
         <TextView
             android:id="@+id/textView6"
+            viewVisibility="@{ui.tvRefreshVsbl}"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:textSize="18sp"
-            viewVisibility="@{ui.tvRefreshVsbl}"
             android:background="?android:attr/selectableItemBackground"
-            android:text="@string/news_tv_refresh"
             android:gravity="center"
             android:onClick="@{ui::btnRefresh}"
+            android:text="@string/news_tv_refresh"
+            android:textSize="18sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

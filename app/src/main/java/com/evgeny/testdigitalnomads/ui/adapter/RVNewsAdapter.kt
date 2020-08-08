@@ -29,12 +29,6 @@ class RVNewsAdapter(private val newsView: NewsView) :
         }
     }
 
-//    var list: List<DBNews> = listOf()
-//        set(value) {
-//            this.updateDiffUtil<DBNews>(list, value)
-//            field = value
-//        }
-
     //==============================================================================================
 
     override fun getItemCount() = super.getItemCount()
