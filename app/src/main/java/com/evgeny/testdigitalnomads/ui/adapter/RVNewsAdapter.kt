@@ -90,15 +90,29 @@ class RVNewsAdapter(private val newsView: NewsView) :
     private inner class FooterVH(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(state: NetState?) {
-            mlg("FooterVH: $state")
-
             itemView.footer.setOnClickListener { newsView.btnRefresh(it) }
 
-            itemView.footer_tv_refresh.visibility =
-                if (state == NetState.ERROR) View.VISIBLE else View.INVISIBLE
+            when (state){
+                NetState.ERROR -> {
+                    itemView.footer_tv_refresh.visibility = View.VISIBLE
+                    itemView.footer_pb.visibility = View.INVISIBLE
+                }
+                NetState.LOADING -> {
+                    itemView.footer_tv_refresh.visibility = View.INVISIBLE
+                    itemView.footer_pb.visibility = View.VISIBLE
+                }
 
-            if (state == NetState.LOADING) itemView.footer_pb.visibility = View.VISIBLE
-            if (state == NetState.LOADED) itemView.footer_pb.visibility = View.INVISIBLE
+                NetState.LOADED -> {
+                    itemView.footer_tv_refresh.visibility = View.INVISIBLE
+                    itemView.footer_pb.visibility = View.INVISIBLE
+                }
+            }
+
+//            itemView.footer_tv_refresh.visibility =
+//                if (state == NetState.ERROR) View.VISIBLE else View.INVISIBLE
+//
+//            if (state == NetState.LOADING) itemView.footer_pb.visibility = View.VISIBLE
+//            if (state == NetState.LOADED) itemView.footer_pb.visibility = View.INVISIBLE
         }
     }
 }
