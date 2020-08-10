@@ -1,9 +1,11 @@
 package com.evgeny.testdigitalnomads.ui.activity
 
+import androidx.paging.LoadState
 import com.evgeny.testdigitalnomads.R
 import com.evgeny.testdigitalnomads.base.BaseActivity
 import com.evgeny.testdigitalnomads.databinding.ActivityNewsBinding
 import com.evgeny.testdigitalnomads.mvvm.vm.NewsVM
+import com.evgeny.testdigitalnomads.util.mlg
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NewsActivity : BaseActivity() {
@@ -14,16 +16,10 @@ class NewsActivity : BaseActivity() {
     //==============================================================================================
 
     override fun initMain() {
-//        binding.apply {
-//            lifecycleOwner = this@NewsActivity
-//            ui = newsVM
-//            newsAdapter = newsVM.newsAdapter
-//        }
-
         binding.apply {
             lifecycleOwner = this@NewsActivity
             ui = newsVM
-            newsAdapter = newsVM.newsAdapter2
+            newsAdapter = newsVM.newsAdapter
         }
     }
 

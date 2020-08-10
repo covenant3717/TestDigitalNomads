@@ -67,7 +67,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
             app:setAdapterRV="@{newsAdapter}"
-            app:viewVisibility="@{ui.rvVsbl}"
             tools:listitem="@layout/item_news" />
 
         <TextView

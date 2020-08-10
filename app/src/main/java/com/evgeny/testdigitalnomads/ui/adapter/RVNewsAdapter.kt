@@ -26,7 +26,6 @@ class RVNewsAdapter(private val newsView: NewsView) :
         }
     }
 
-
     //==============================================================================================
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
