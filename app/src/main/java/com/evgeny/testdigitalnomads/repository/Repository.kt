@@ -55,5 +55,25 @@ class Repository constructor(
 
     }
 
+    suspend fun getNews2(
+        page: Int, onResult: (response: Resource<List<DBNews>>) -> Unit
+    ) = withContext(Dispatchers.IO) {
+        if (isConnected()) {
+            onResult(loading(true))
+
+            val response = mainApiClient.getNews(page = page)
+            onResult(
+                when (response) {
+                    is Resource.Success -> Resource.Success(response.value.toListDBNews())
+                    is Resource.Error -> response
+                    is Resource.Progress -> response
+                }
+            )
+
+            onResult(loading(false))
+        } else onResult(Resource.Error(getStringRes(R.string.internet_disconnected)))
+
+    }
+
 
 }

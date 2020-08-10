@@ -4,7 +4,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
@@ -13,11 +12,7 @@ import coil.api.load
 import coil.transform.RoundedCornersTransformation
 import com.evgeny.testdigitalnomads.R
 import com.evgeny.testdigitalnomads.model.DBNews
-import com.evgeny.testdigitalnomads.model.News
 import com.evgeny.testdigitalnomads.ui.adapter.RVNewsAdapter
-import com.evgeny.testdigitalnomads.util.invisible
-import com.evgeny.testdigitalnomads.util.visible
-import java.io.File
 
 
 // COMMON ==========================================================================================
@@ -59,12 +54,5 @@ fun setNewsImage(view: ImageView, imageUrl: String) {
 //        placeholder(R.drawable.cmn_placeholder)
         error(R.drawable.cmn_placeholder_error)
         transformations(RoundedCornersTransformation(24f))
-    }
-}
-
-@BindingAdapter("setPagedNewsList")
-fun setNewsList(rv: RecyclerView, list: MutableLiveData<PagedList<DBNews>?>?) {
-    list?.value?.let {
-        (rv.adapter as? RVNewsAdapter)?.submitList(it)
     }
 }

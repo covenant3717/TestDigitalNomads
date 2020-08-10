@@ -9,10 +9,12 @@ import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import com.evgeny.testdigitalnomads.repository.Repository
+import com.evgeny.testdigitalnomads.repository.network.MainApi
 
 abstract class BaseVM() : ViewModel(), BaseView, KoinComponent {
 
     protected val repository by inject<Repository>()
+    protected val mainApi by inject<MainApi>()
 
     //==============================================================================================
 
