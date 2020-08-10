@@ -1,5 +1,6 @@
 package com.evgeny.testdigitalnomads.ui.activity
 
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.evgeny.testdigitalnomads.R
@@ -8,8 +9,7 @@ import com.evgeny.testdigitalnomads.databinding.ActivityNewsBinding
 import com.evgeny.testdigitalnomads.mvvm.vm.NewsVM
 import com.evgeny.testdigitalnomads.ui.adapter.RVNewsAdapter
 import com.evgeny.testdigitalnomads.ui.adapter.RVNewsLoadStateAdapter
-import com.evgeny.testdigitalnomads.util.gone
-import com.evgeny.testdigitalnomads.util.visible
+import com.evgeny.testdigitalnomads.util.*
 import kotlinx.android.synthetic.main.activity_news.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,6 +30,7 @@ class NewsActivity : BaseActivity() {
             ui = newsVM
         }
 
+        initTvRefresh()
         initRVNews()
     }
 
@@ -39,6 +40,17 @@ class NewsActivity : BaseActivity() {
     }
 
     //==============================================================================================
+
+    private fun initTvRefresh() {
+        news_tv_refresh.visibility = if (isConnected()) View.GONE else View.VISIBLE
+
+        news_tv_refresh.setOnClickListener {
+            if (isConnected()) {
+                news_tv_refresh.gone()
+                newsAdapter.retry()
+            } else toastShort(getStringRes(R.string.internet_disconnected))
+        }
+    }
 
     private fun initRVNews() {
         newsAdapter = RVNewsAdapter(newsVM)

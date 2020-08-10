@@ -28,20 +28,12 @@ class NewsVM : BaseVM(), NewsView {
 
     override val date: ObservableField<String> =
         ObservableField(getCurrentDate(DATE_PATTERN_NEWS_MAIN_DATE))
-    override val tvRefreshVsbl: MutableLiveData<Boolean> = MutableLiveData(false)
 
     override fun btnOpenNews(view: View?, currentNews: DBNews) {
         view?.context?.launchActivity<WebViewActivity> {
             putExtra(POST_URL, currentNews.url)
         }
     }
-
-    override fun btnRefresh(view: View?) {
-
-    }
-
-    //==============================================================================================
-
 
 
 }
