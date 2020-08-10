@@ -39,12 +39,6 @@ fun bindViewVisibility(view: View, status: LiveData<Boolean>) {
     }
 }
 
-@BindingAdapter("setAdapterRV")
-fun setAdapterRV(rv: RecyclerView, adapter: RecyclerView.Adapter<*>) {
-    rv.adapter = adapter
-}
-
-
 // CURRENT PROJECT =================================================================================
 
 @BindingAdapter("setNewsImage")

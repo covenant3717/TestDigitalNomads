@@ -13,14 +13,13 @@ import com.evgeny.testdigitalnomads.ui.activity.WebViewActivity
 import com.evgeny.testdigitalnomads.util.*
 import com.evgeny.testdigitalnomads.repository.network.NewsPagingSource
 import com.evgeny.testdigitalnomads.ui.adapter.RVNewsAdapter
+import com.evgeny.testdigitalnomads.ui.adapter.RVNewsLoadStateAdapter
 import kotlinx.coroutines.flow.collectLatest
 
 
 class NewsVM : BaseVM(), NewsView {
 
-    var newsAdapter = RVNewsAdapter(this)
-
-    private val newsFlow = Pager(PagingConfig(pageSize = 20, prefetchDistance = 5)) {
+    val newsFlow = Pager(PagingConfig(pageSize = 5, prefetchDistance = 5)) {
         NewsPagingSource(mainApi)
     }.flow
         .cachedIn(viewModelScope)
@@ -38,41 +37,12 @@ class NewsVM : BaseVM(), NewsView {
     }
 
     override fun btnRefresh(view: View?) {
+
     }
 
-    init {
-        initNewsPagedListListener()
-        initLoadStateListener()
-    }
 
     //==============================================================================================
 
 
-    private fun initNewsPagedListListener() = launchOnViewModelScope {
-        newsFlow.collectLatest { pagingData ->
-            newsAdapter.submitData(pagingData)
-        }
-    }
-
-    private fun initLoadStateListener() {
-        newsAdapter.addLoadStateListener { loadState ->
-            if (loadState.refresh is LoadState.Loading) {
-                progress.postValue(true)
-            } else {
-                progress.postValue(false)
-
-                // getting the error
-                val error = when {
-                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-                    else -> null
-                }
-                error?.let {
-                    toast.postValue(it.error.message.toString())
-                }
-            }
-        }
-    }
 
 }
