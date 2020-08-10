@@ -1,6 +1,5 @@
 package com.evgeny.testdigitalnomads.ui.activity
 
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.evgeny.testdigitalnomads.R
@@ -10,7 +9,6 @@ import com.evgeny.testdigitalnomads.mvvm.vm.NewsVM
 import com.evgeny.testdigitalnomads.ui.adapter.RVNewsAdapter
 import com.evgeny.testdigitalnomads.ui.adapter.RVNewsLoadStateAdapter
 import com.evgeny.testdigitalnomads.util.gone
-import com.evgeny.testdigitalnomads.util.mlg
 import com.evgeny.testdigitalnomads.util.visible
 import kotlinx.android.synthetic.main.activity_news.*
 import kotlinx.coroutines.flow.collectLatest
@@ -46,16 +44,18 @@ class NewsActivity : BaseActivity() {
         newsAdapter = RVNewsAdapter(newsVM)
 
         news_rv.apply {
+            // bind data-adapter and footer-adapter to RV
             adapter = newsAdapter.withLoadStateFooter(
                 footer = RVNewsLoadStateAdapter { newsAdapter.retry() }
             )
         }
 
-        initNewsPagedListListener()
+        initNewsPagedFlow()
         initLoadStateListener()
     }
 
-    private fun initNewsPagedListListener() {
+    private fun initNewsPagedFlow() {
+        // observe to data-news and set them to adapter
         lifecycleScope.launch {
             newsVM.newsFlow.collectLatest { pagingData ->
                 newsAdapter.submitData(pagingData)
@@ -64,6 +64,8 @@ class NewsActivity : BaseActivity() {
     }
 
     private fun initLoadStateListener() {
+        // get load state and change UI
+
         newsAdapter.addLoadStateListener { loadState ->
             if (loadState.refresh is LoadState.Loading) {
                 news_pb.visible()
