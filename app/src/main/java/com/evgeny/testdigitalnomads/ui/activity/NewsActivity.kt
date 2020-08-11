@@ -69,7 +69,7 @@ class NewsActivity : BaseActivity() {
     private fun initNewsPagedFlow() {
         // observe to data-news and set them to adapter
         lifecycleScope.launch {
-            newsVM.newsFlow.collectLatest { pagingData ->
+            newsVM.getNewsFlow().collectLatest { pagingData ->
                 newsAdapter.submitData(pagingData)
             }
         }

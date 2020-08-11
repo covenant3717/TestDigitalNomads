@@ -8,9 +8,7 @@ import com.evgeny.testdigitalnomads.repository.room.MainDao
 
 val RepositoryModule = module {
 
-    // Repository
     single {
-        Repository(get<MainApiClient>(), get<MainDao>())
-//        Repository(get<MainApiClient>())
+        Repository(get(), get(), get())
     }
 }

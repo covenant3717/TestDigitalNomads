@@ -1,6 +1,6 @@
 package com.evgeny.testdigitalnomads.repository.room
 
-import androidx.paging.DataSource
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -18,6 +18,6 @@ interface MainDao {
     fun clearNews()
 
     @Query("SELECT * FROM $TABLE_NEWS")
-    fun getNews(): DataSource.Factory<Int, DBNews>
+    fun getNews2(): PagingSource<Int, DBNews>
 
 }

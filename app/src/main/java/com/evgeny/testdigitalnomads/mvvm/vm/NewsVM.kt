@@ -1,28 +1,23 @@
 package com.evgeny.testdigitalnomads.mvvm.vm
 
 import android.view.View
-import android.widget.Toast
 import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.*
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.evgeny.testdigitalnomads.base.BaseVM
 import com.evgeny.testdigitalnomads.model.DBNews
 import com.evgeny.testdigitalnomads.mvvm.view.NewsView
 import com.evgeny.testdigitalnomads.ui.activity.WebViewActivity
-import com.evgeny.testdigitalnomads.util.*
-import com.evgeny.testdigitalnomads.repository.network.NewsPagingSource
-import com.evgeny.testdigitalnomads.ui.adapter.RVNewsAdapter
-import com.evgeny.testdigitalnomads.ui.adapter.RVNewsLoadStateAdapter
-import kotlinx.coroutines.flow.collectLatest
+import com.evgeny.testdigitalnomads.util.DATE_PATTERN_NEWS_MAIN_DATE
+import com.evgeny.testdigitalnomads.util.POST_URL
+import com.evgeny.testdigitalnomads.util.getCurrentDate
+import com.evgeny.testdigitalnomads.util.launchActivity
+import kotlinx.coroutines.flow.Flow
 
 
 class NewsVM : BaseVM(), NewsView {
 
-    val newsFlow = Pager(PagingConfig(pageSize = 5, prefetchDistance = 5)) {
-        NewsPagingSource(mainApi)
-    }.flow
-        .cachedIn(viewModelScope)
 
     //==============================================================================================
 
@@ -33,6 +28,13 @@ class NewsVM : BaseVM(), NewsView {
         view?.context?.launchActivity<WebViewActivity> {
             putExtra(POST_URL, currentNews.url)
         }
+    }
+
+    //==============================================================================================
+
+    suspend fun getNewsFlow(): Flow<PagingData<DBNews>> {
+        return repository.getNewsFlow()
+            .cachedIn(viewModelScope)
     }
 
 

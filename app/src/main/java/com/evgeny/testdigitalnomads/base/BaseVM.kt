@@ -14,7 +14,6 @@ import com.evgeny.testdigitalnomads.repository.network.MainApi
 abstract class BaseVM() : ViewModel(), BaseView, KoinComponent {
 
     protected val repository by inject<Repository>()
-    protected val mainApi by inject<MainApi>()
 
     //==============================================================================================
 
