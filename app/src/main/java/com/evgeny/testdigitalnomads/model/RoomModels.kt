@@ -6,8 +6,6 @@ import com.evgeny.testdigitalnomads.util.TABLE_NEWS
 import com.google.gson.annotations.SerializedName
 
 
-// НЕ ЗАБЫВАЙ ЗАНОСИТЬ Entity в AppDatabase!!!
-
 @Entity(tableName = TABLE_NEWS)
 data class DBNews(
     @PrimaryKey(autoGenerate = true)

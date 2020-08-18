@@ -5,5 +5,4 @@ import com.evgeny.testdigitalnomads.base.BaseView
 
 interface MainView: BaseView {
 
-
 }

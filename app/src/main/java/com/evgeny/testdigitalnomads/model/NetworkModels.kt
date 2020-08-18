@@ -13,9 +13,6 @@ data class BaseResponse<T>(
 )
 
 
-// REQUEST ↓ ↓ ↓ ===================================================================================
-
-
 // RESPONSE ↓ ↓ ↓ ==================================================================================
 data class NetNews(
     @SerializedName("publishedAt") val date: String?,

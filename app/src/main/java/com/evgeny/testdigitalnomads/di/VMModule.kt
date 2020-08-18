@@ -9,6 +9,5 @@ val VMModule = module {
 
     viewModel { MainVM() }
     viewModel { NewsVM() }
-//    viewModel { BidsVM() }
 
 }
